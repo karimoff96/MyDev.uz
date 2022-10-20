@@ -8,7 +8,7 @@ env.read_env()
 
 posts = requests.get(env.str('url')).json()
 app = Flask(__name__)
-
+TARGET_EMAIL = env.str('TARGET_EMAIL')
 OWN_EMAIL = env.str('OWN_EMAIL')  # Receivers gmail address
 OWN_PASSWORD = env.str('OWN_PASSWORD')  # Google App password NOT gmail password
 
@@ -54,7 +54,7 @@ def send_email(name, email, phone, message):
         connection.starttls()
         connection.login(OWN_EMAIL, OWN_PASSWORD)
         connection.sendmail(from_addr=email,
-                            to_addrs=OWN_EMAIL,
+                            to_addrs=TARGET_EMAIL,
                             msg=email_message)
 
 
