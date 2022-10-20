@@ -9,8 +9,9 @@ env.read_env()
 posts = requests.get(env.str('url')).json()
 app = Flask(__name__)
 
-OWN_EMAIL = env.str('OWN_EMAIL')  # Receivers gmail address
-OWN_PASSWORD = env.str('OWN_PASSWORD')  # Google App password NOT gmail password
+OWN_EMAIL = env.str('OWN_EMAIL')  # Host email address which works as a message sender mechanism
+OWN_PASSWORD = env.str('OWN_PASSWORD')  # Google App password (NOT gmail password). The app created in OWN_EMAIL
+TARGET_EMAIL = env.str('TARGET_EMAIL')  # Target email which message would be sent
 
 
 @app.route("/")
@@ -53,8 +54,8 @@ def send_email(name, email, phone, message):
     with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
         connection.starttls()
         connection.login(OWN_EMAIL, OWN_PASSWORD)
-        connection.sendmail(from_addr=email,
-                            to_addrs=OWN_EMAIL,
+        connection.sendmail(from_addr=OWN_EMAIL,
+                            to_addrs=TARGET_EMAIL,
                             msg=email_message)
 
 
