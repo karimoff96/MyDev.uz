@@ -64,6 +64,14 @@
   --bs-body-bg: #fff;
 }
 
+.site-heading {
+  z-index: 1;
+  position: relative;
+}
+.post-heading {
+  z-index: 1;
+  position: relative;
+}
 *,
 *::before,
 *::after {
